@@ -3,7 +3,7 @@ const fs = require('fs');
 
 // Create a local server to receive data from
 const server = http.createServer((req, res) => {
-    // Routing logic
+  // Routing logic
   if (req.url === '/' || req.url === '/index.html') {
     fs.readFile('index.html', (err, data) => {
       if (err) {
@@ -30,5 +30,3 @@ const PORT = process.env.PORT || 8080;
 server.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
-
-//server.listen(8080);
