@@ -1,7 +1,7 @@
 const http = require('node:http');
 const fs = require('fs');
 
-// Create a local server to receive data from and add routing logic
+// Create a local server to receive data from & adds routing logic
 const server = http.createServer((req, res) => {
   if (req.url === '/' || req.url === '/index.html') {
     fs.readFile('index.html', (err, data) => {
@@ -15,6 +15,17 @@ const server = http.createServer((req, res) => {
     });
   } else if (req.url === '/about' || req.url === '/about.html') {
     fs.readFile('about.html', (err, data) => {
+      if (err) {
+        res.writeHead(500, { 'Content-Type': 'text/plain' });
+        res.end('Internal Server Error');
+      } else {
+        res.writeHead(200, { 'Content-Type': 'text/html' });
+        res.end(data);
+      }
+    });
+  }
+  else if (req.url === '/contact-me' || req.url === '/contact-me.html') {
+    fs.readFile('contact-me.html', (err, data) => {
       if (err) {
         res.writeHead(500, { 'Content-Type': 'text/plain' });
         res.end('Internal Server Error');
