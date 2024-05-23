@@ -6,16 +6,22 @@ const PORT = process.env.PORT || 8080;
 // Path to the directory containing your static files
 const publicDirectoryPath = path.join(__dirname, './');
 
-// Root handler function
 function rootHandler(req, res) {
-  //res.send("Hello World (From Express)!");
   res.sendFile(path.join(publicDirectoryPath, 'index.html'));
 }
 
-// Define routes
-app.get('/', rootHandler);
-app.get('/index.html', rootHandler);
+function aboutHandler(req, res) {
+  res.sendFile(path.join(publicDirectoryPath, 'about.html'));
+}
 
+function contactHandler(req, res) {
+  res.sendFile(path.join(publicDirectoryPath, 'contact-me.html'));
+}
+
+// Define routes
+app.get(['/', '/index.html'], rootHandler);
+app.get(['/about', '/about.html'], aboutHandler);
+app.get(['/contact-me', '/contact-me.html'], contactHandler);
 
 app.listen(PORT, () => {
   console.log(`Express server is listening on port ${PORT}!`);
@@ -66,7 +72,6 @@ const server = http.createServer((req, res) => {
     res.end('Page Not Found');
   }
 });
-
 
 const PORT = process.env.PORT || 8080;
 server.listen(PORT, () => {
