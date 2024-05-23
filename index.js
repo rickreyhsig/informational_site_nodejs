@@ -1,3 +1,28 @@
+const express = require("express");
+const app = express();
+const path = require('path');
+const PORT = process.env.PORT || 8080;
+
+// Path to the directory containing your static files
+const publicDirectoryPath = path.join(__dirname, './');
+
+// Root handler function
+function rootHandler(req, res) {
+  //res.send("Hello World (From Express)!");
+  res.sendFile(path.join(publicDirectoryPath, 'index.html'));
+}
+
+// Define routes
+app.get('/', rootHandler);
+app.get('/index.html', rootHandler);
+
+
+app.listen(PORT, () => {
+  console.log(`Express server is listening on port ${PORT}!`);
+});
+
+
+/*
 const http = require('node:http');
 const fs = require('fs');
 
@@ -47,3 +72,4 @@ const PORT = process.env.PORT || 8080;
 server.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
+*/
